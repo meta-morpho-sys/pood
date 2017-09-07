@@ -1,15 +1,22 @@
-# An example of leaky references
-class ObscuringReferences
-  attr_reader :data
+# An example of rafactoring of leaky references
+
+class RevealingReferences
+
+  attr_reader :wheels
   def initialize(data)
-    @data = data
+    @wheels = wheelify(data)
   end
 
   def diameters
-    # 0 is rim, 1 is tire
-    data.collect { |cell|
-    cell[0] + (cell[1] * 2)}
+    wheels.collect { |wheel|
+    wheel.rim + (wheel.tire * 2)}
   end
+
+  Wheel = Struct.new(:rim, :tire)
+  def wheelify(data)
+    data.collect { |cell|
+      Wheel.new(cell[0], cell[1])}
+    end
 end
 
-p obsref = ObscuringReferences.new([[622, 20], [622, 23]]).diameters
+p obsref = RevealingReferences.new([[622, 20], [622, 23]]).diameters
