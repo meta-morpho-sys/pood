@@ -1,5 +1,3 @@
-# An example of rafactoring of leaky references
-
 class RevealingReferences
 
   attr_reader :wheels
@@ -19,7 +17,7 @@ class RevealingReferences
   def wheelify(data)
     data.collect { |cell|
       Wheel.new(cell[0], cell[1])}
-    end
+  end
 end
 
 p obsref = RevealingReferences.new([[622, 20], [622, 23]]).diameters

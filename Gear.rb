@@ -1,9 +1,9 @@
 class Gear
   attr_reader :chaining, :cog, :wheel
-  def initialize(chaining, cog, rim, tire)
+  def initialize(chaining, cog, wheel=nil)
     @chaining = chaining
     @cog = cog
-    @wheel = Wheel.new(rim, tire)
+    @wheel = wheel
   end
 
   def ratio
@@ -13,12 +13,26 @@ class Gear
   def gear_inches
     ratio * wheel.diameter
   end
+end
 
-  Wheel = Struct.new(:rim, :tire) do
-    def diameter
+class Wheel
+  attr_reader :rim, :tire
+
+  def initialize(rim, tire)
+    @rim = rim
+    @tire = tire
+  end
+
+  def diameter
       rim + (tire * 2)
-    end
+  end
+
+  def circumference
+    diameter * Math::PI
   end
 end
 
-puts Gear.new(52, 11, 26, 1.5).gear_inches
+@wheel = Wheel.new(26, 1.5)
+puts @wheel.circumference
+
+puts Gear.new(52, 11, @wheel).gear_inches
