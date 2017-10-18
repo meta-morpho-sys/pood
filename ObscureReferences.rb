@@ -20,4 +20,4 @@ class RevealingReferences
   end
 end
 
-p obsref = RevealingReferences.new([[622, 20], [622, 23]]).diameters
+RevealingReferences.new([[622, 20], [622, 23]]).diameters
